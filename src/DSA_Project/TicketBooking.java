@@ -2,10 +2,13 @@ package DSA_Project;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
@@ -34,6 +37,7 @@ public class TicketBooking extends javax.swing.JFrame {
         delete = new javax.swing.JButton();
         save = new javax.swing.JButton();
         search = new javax.swing.JButton();
+        searchold = new javax.swing.JButton();
         name = new javax.swing.JLabel();
         nametf = new javax.swing.JTextField();
         phoneno = new javax.swing.JLabel();
@@ -90,7 +94,17 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         menupanel.add(search);
-        search.setBounds(27, 277, 120, 32);
+        search.setBounds(30, 270, 120, 32);
+
+        searchold.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        searchold.setText("Search Old");
+        searchold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searcholdActionPerformed(evt);
+            }
+        });
+        menupanel.add(searchold);
+        searchold.setBounds(30, 340, 120, 30);
 
         panel.add(menupanel);
         menupanel.setBounds(0, 0, 180, 600);
@@ -315,6 +329,48 @@ public class TicketBooking extends javax.swing.JFrame {
         
     }//GEN-LAST:event_saveActionPerformed
 
+    private void searcholdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searcholdActionPerformed
+        
+        String str = JOptionPane.showInputDialog(null, "Enter phone number: ");
+        
+        if(str==null)
+        {
+            
+        }
+        else if(str.length()<=0)
+        {
+            JOptionPane.showMessageDialog(null, "You have entered nothing");
+        }
+        
+        else if(Pattern.matches("^[A-z]+$",str))
+        {
+            JOptionPane.showMessageDialog(null, "Please enter only number!");
+        }
+        
+        else
+        {
+        
+            try {
+                FileReader fr = new FileReader("./TicketBooking.txt");
+                BufferedReader br=new BufferedReader(fr);
+                String str2;
+                while((str2=br.readLine())!=null)
+                {
+                    if(str2.contains(str))
+                    {
+                        JOptionPane.showMessageDialog(null, str2);
+                        break;
+                    }
+                }
+
+                br.close();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+        
+    }//GEN-LAST:event_searcholdActionPerformed
+
    
     public static void main(String args[]) {
         
@@ -357,6 +413,7 @@ public class TicketBooking extends javax.swing.JFrame {
     private javax.swing.JButton save;
     private javax.swing.JScrollPane scrollpane;
     private javax.swing.JButton search;
+    private javax.swing.JButton searchold;
     private javax.swing.JButton showlist;
     public javax.swing.JTable table;
     private javax.swing.JPanel tablepanel;
