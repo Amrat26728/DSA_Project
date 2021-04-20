@@ -41,11 +41,13 @@ public class TicketBooking extends javax.swing.JFrame {
         name = new javax.swing.JLabel();
         nametf = new javax.swing.JTextField();
         phoneno = new javax.swing.JLabel();
-        numbertf = new javax.swing.JTextField();
+        emailtf = new javax.swing.JTextField();
         enter = new javax.swing.JButton();
         tablepanel = new javax.swing.JPanel();
         scrollpane = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        email = new javax.swing.JLabel();
+        numbertf = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -112,7 +114,7 @@ public class TicketBooking extends javax.swing.JFrame {
         name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         name.setText("Name:");
         panel.add(name);
-        name.setBounds(242, 51, 53, 26);
+        name.setBounds(260, 16, 50, 40);
 
         nametf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -120,21 +122,22 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         panel.add(nametf);
-        nametf.setBounds(309, 44, 233, 33);
+        nametf.setBounds(310, 20, 233, 33);
 
         phoneno.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        phoneno.setText("Phone No:");
+        phoneno.setText(" Phone No:");
         panel.add(phoneno);
-        phoneno.setBounds(217, 110, 80, 27);
+        phoneno.setBounds(230, 70, 80, 30);
 
-        numbertf.addKeyListener(new java.awt.event.KeyAdapter() {
+        emailtf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                numbertfKeyPressed(evt);
+                emailtfKeyPressed(evt);
             }
         });
-        panel.add(numbertf);
-        numbertf.setBounds(309, 107, 233, 35);
+        panel.add(emailtf);
+        emailtf.setBounds(310, 120, 233, 35);
 
+        enter.setBackground(new java.awt.Color(153, 153, 255));
         enter.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         enter.setText("Enter");
         enter.addActionListener(new java.awt.event.ActionListener() {
@@ -152,11 +155,11 @@ public class TicketBooking extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Phone Number", "Date"
+                "Name", "Phone Number", "Email", "Date"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -174,6 +177,19 @@ public class TicketBooking extends javax.swing.JFrame {
         panel.add(tablepanel);
         tablepanel.setBounds(190, 300, 430, 290);
 
+        email.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        email.setText(" Email:");
+        panel.add(email);
+        email.setBounds(260, 120, 50, 30);
+
+        numbertf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                numbertfKeyPressed(evt);
+            }
+        });
+        panel.add(numbertf);
+        numbertf.setBounds(310, 70, 233, 35);
+
         getContentPane().add(panel);
         panel.setBounds(0, 0, 630, 601);
 
@@ -182,25 +198,42 @@ public class TicketBooking extends javax.swing.JFrame {
 
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
        
-        ds.add(nametf.getText(), numbertf.getText(), dateformat.format(date));
-        JOptionPane.showMessageDialog(null,"Data Saved");
+       if(emailtf.getText().endsWith("@gmail.com") || emailtf.getText().endsWith("@email.com"))
+       {
+            ds.add(nametf.getText(), numbertf.getText(), emailtf.getText(), dateformat.format(date));
+            JOptionPane.showMessageDialog(null,"Data Saved");
+       }
+       
+       else
+       {
+           JOptionPane.showMessageDialog(null,"Something is wrong!");
+       }
     }//GEN-LAST:event_enterActionPerformed
 
     private void showlistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showlistActionPerformed
         
         String[] arr = ds.print();
         
-        javax.swing.table.DefaultTableModel model;
-        table.setModel(new javax.swing.table.DefaultTableModel(null,new String[] {"Name", "Phone Number", "Date"}));
-       
-        for(int i=0;i<arr.length-2;i++,i++,i++)
+        if(arr==null)
         {
-            String str1 = arr[i];
-            String str2 = arr[i+1];
-            String str3 = arr[i+2];
-            String[] data={str1,str2,str3};
-            model=(javax.swing.table.DefaultTableModel) table.getModel();
-            model.addRow(data);
+            
+        }
+        
+        else
+        {
+            javax.swing.table.DefaultTableModel model;
+            table.setModel(new javax.swing.table.DefaultTableModel(null,new String[] {"Name", "Phone Number", "Email", "Date"}));
+
+            for(int i=0;i<arr.length-3;i++,i++,i++,i++)
+            {
+                String str1 = arr[i];
+                String str2 = arr[i+1];
+                String str3 = arr[i+2];
+                String str4 = arr[i+3];
+                String[] data={str1,str2,str3,str4};
+                model=(javax.swing.table.DefaultTableModel) table.getModel();
+                model.addRow(data);
+            }
         }
         
     }//GEN-LAST:event_showlistActionPerformed
@@ -215,7 +248,7 @@ public class TicketBooking extends javax.swing.JFrame {
         }
         else if(str.length()<=0)
         {
-            JOptionPane.showMessageDialog(null, "You have entered nothing");
+            JOptionPane.showMessageDialog(null, "You entered nothing");
         }
         
         else if(Pattern.matches("^[A-z]+$",str))
@@ -251,7 +284,7 @@ public class TicketBooking extends javax.swing.JFrame {
         }
         else if(str.length()<=0)
         {
-            JOptionPane.showMessageDialog(null, "You have entered nothing");
+            JOptionPane.showMessageDialog(null, "You entered nothing");
         }
         
         else if(Pattern.matches("^[A-z]+$",str))
@@ -262,14 +295,14 @@ public class TicketBooking extends javax.swing.JFrame {
         else
         {
             String[] arr = ds.search(str);
-            if(arr.equals(null))
+            if(arr==null)
             {
                 JOptionPane.showMessageDialog(null, "Entry does not exist!");
             }
             
             else
             {
-                JOptionPane.showMessageDialog(null, "Name: "+arr[0]+"\n"+"Phone No: "+arr[1]);
+                JOptionPane.showMessageDialog(null, "Name: "+arr[0]+"\n"+"Phone No: "+arr[1]+"\n"+"Email: "+arr[2]+"\n"+"Date: "+arr[3]);
             }
         }
         
@@ -291,21 +324,9 @@ public class TicketBooking extends javax.swing.JFrame {
         
     }//GEN-LAST:event_nametfKeyPressed
 
-    private void numbertfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numbertfKeyPressed
-        
-        char ch=evt.getKeyChar();
-        
-        if(Character.isDigit(ch) || Character.isISOControl(ch))
-        {
-            numbertf.setEditable(true);
-        }
-        
-        else
-        {
-            numbertf.setEditable(false);
-        }
-                
-    }//GEN-LAST:event_numbertfKeyPressed
+    private void emailtfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailtfKeyPressed
+      
+    }//GEN-LAST:event_emailtfKeyPressed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         
@@ -315,9 +336,9 @@ public class TicketBooking extends javax.swing.JFrame {
              FileWriter obj=new FileWriter("./TicketBooking.txt",true);
 	     BufferedWriter ob=new BufferedWriter(obj);
              
-             for(int i=0;i<arr.length-2;i++,i++,i++)
+             for(int i=0;i<arr.length-3;i++,i++,i++,i++)
              {
-                 ob.write(arr[i]+"\t\t\t\t"+arr[i+1]+"\t\t\t\t"+arr[i+2]+"\r\n");
+                 ob.write(arr[i]+"\t\t\t\t"+arr[i+1]+"\t\t\t\t"+arr[i+2]+"\t\t\t\t"+arr[i+3]+"\r\n");
              }
              ob.close();
              
@@ -339,7 +360,7 @@ public class TicketBooking extends javax.swing.JFrame {
         }
         else if(str.length()<=0)
         {
-            JOptionPane.showMessageDialog(null, "You have entered nothing");
+            JOptionPane.showMessageDialog(null, "You entered nothing");
         }
         
         else if(Pattern.matches("^[A-z]+$",str))
@@ -370,6 +391,10 @@ public class TicketBooking extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_searcholdActionPerformed
+
+    private void numbertfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numbertfKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numbertfKeyPressed
 
    
     public static void main(String args[]) {
@@ -403,6 +428,8 @@ public class TicketBooking extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton delete;
+    private javax.swing.JLabel email;
+    private javax.swing.JTextField emailtf;
     private javax.swing.JButton enter;
     private javax.swing.JPanel menupanel;
     private javax.swing.JLabel name;
