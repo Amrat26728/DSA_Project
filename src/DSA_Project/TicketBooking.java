@@ -146,7 +146,7 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         panel.add(enter);
-        enter.setBounds(329, 184, 114, 30);
+        enter.setBounds(350, 190, 114, 30);
 
         tablepanel.setLayout(null);
 
