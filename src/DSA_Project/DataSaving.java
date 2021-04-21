@@ -48,12 +48,7 @@ public class DataSaving {
         String[] arr=new String[size*4];
         int i=0;
        
-        if(size==0)
-        {
-            JOptionPane.showMessageDialog(null, "List is empty!");
-        }
-        
-        else
+        if(size!=0)
         {
           for(Node n=head.next;n!=head;n=n.next)
             {
@@ -68,7 +63,11 @@ public class DataSaving {
             }
             return arr;
         }
-        return null;
+        
+        else
+        {
+            return null;
+        }
     }
     
     public boolean cancelBooking(String number){
@@ -90,12 +89,19 @@ public class DataSaving {
         {
            for(Node n=head.next;n!=head;n=n.next)
             {
-                if(n.next.number.equals(number))
+                if(n.next.number==null)
                 {
-                    n.next=n.next.next;
-                    n.next.next.prev=n;
-                    size--;
-                    return true;
+                    return false;
+                }
+                else
+                {
+                    if(n.next.number.equals(number))
+                    {
+                        n.next=n.next.next;
+                        n.next.next.prev=n;
+                        size--;
+                        return true;
+                    }
                 }
             }
            

@@ -66,7 +66,7 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         menupanel.add(showlist);
-        showlist.setBounds(27, 53, 120, 32);
+        showlist.setBounds(30, 40, 120, 40);
 
         delete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         delete.setText("Delete");
@@ -76,7 +76,7 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         menupanel.add(delete);
-        delete.setBounds(27, 123, 120, 32);
+        delete.setBounds(30, 110, 120, 40);
 
         save.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         save.setText("Save Records");
@@ -86,7 +86,7 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         menupanel.add(save);
-        save.setBounds(27, 197, 120, 32);
+        save.setBounds(30, 180, 120, 40);
 
         search.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         search.setText("Search");
@@ -96,7 +96,7 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         menupanel.add(search);
-        search.setBounds(30, 270, 120, 32);
+        search.setBounds(30, 250, 120, 40);
 
         searchold.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         searchold.setText("Search Old");
@@ -106,7 +106,7 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         menupanel.add(searchold);
-        searchold.setBounds(30, 340, 120, 30);
+        searchold.setBounds(30, 320, 120, 40);
 
         panel.add(menupanel);
         menupanel.setBounds(0, 0, 180, 600);
@@ -216,7 +216,7 @@ public class TicketBooking extends javax.swing.JFrame {
         
         if(arr==null)
         {
-            
+            JOptionPane.showMessageDialog(null, "List is empty!");
         }
         
         else
@@ -289,7 +289,7 @@ public class TicketBooking extends javax.swing.JFrame {
         
         else if(Pattern.matches("^[A-z]+$",str))
         {
-            JOptionPane.showMessageDialog(null, "Please enter only number!");
+            JOptionPane.showMessageDialog(null, "Please enter only number!", null, JOptionPane.ERROR_MESSAGE);
         }
         
         else
@@ -332,21 +332,30 @@ public class TicketBooking extends javax.swing.JFrame {
         
         String [] arr = ds.print();
         
-        try {
-             FileWriter obj=new FileWriter("./TicketBooking.txt",true);
-	     BufferedWriter ob=new BufferedWriter(obj);
-             
-             for(int i=0;i<arr.length-3;i++,i++,i++,i++)
-             {
-                 ob.write(arr[i]+"\t\t\t\t"+arr[i+1]+"\t\t\t\t"+arr[i+2]+"\t\t\t\t"+arr[i+3]+"\r\n");
-             }
-             ob.close();
-             
-             JOptionPane.showMessageDialog(null, "Data saved in TicketBooking file");
-             
-	}catch(Exception e) {
-		JOptionPane.showMessageDialog(null, e);
-	}
+        if(arr==null)
+        {
+            JOptionPane.showMessageDialog(null, "List is empty!");
+        }
+        
+        else
+        {
+        
+            try {
+                 FileWriter obj=new FileWriter("./TicketBooking.txt",true);
+                 BufferedWriter ob=new BufferedWriter(obj);
+
+                 for(int i=0;i<arr.length-3;i++,i++,i++,i++)
+                 {
+                     ob.write(arr[i]+"\t\t\t\t"+arr[i+1]+"\t\t\t\t"+arr[i+2]+"\t\t\t\t"+arr[i+3]+"\r\n");
+                 }
+                 ob.close();
+
+                 JOptionPane.showMessageDialog(null, "Data saved in TicketBooking file");
+
+            }catch(Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
+            }
+        }
         
     }//GEN-LAST:event_saveActionPerformed
 
@@ -365,12 +374,12 @@ public class TicketBooking extends javax.swing.JFrame {
         
         else if(Pattern.matches("^[A-z]+$",str))
         {
-            JOptionPane.showMessageDialog(null, "Please enter only number!");
+            JOptionPane.showMessageDialog(null, "Please enter only number!", null, JOptionPane.ERROR_MESSAGE);
         }
         
         else
         {
-        
+            boolean check=false;
             try {
                 FileReader fr = new FileReader("./TicketBooking.txt");
                 BufferedReader br=new BufferedReader(fr);
@@ -379,21 +388,44 @@ public class TicketBooking extends javax.swing.JFrame {
                 {
                     if(str2.contains(str))
                     {
-                        JOptionPane.showMessageDialog(null, str2);
+                        check=true;
                         break;
                     }
+                    else
+                    {
+                        check=false;
+                    }
+                }
+                
+                if(check)
+                {
+                    JOptionPane.showMessageDialog(null, str2);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Entry does not exist!");
                 }
 
                 br.close();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
         }
         
     }//GEN-LAST:event_searcholdActionPerformed
 
     private void numbertfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numbertfKeyPressed
-        // TODO add your handling code here:
+        
+        char ch=evt.getKeyChar();
+        if(Character.isDigit(ch) || Character.isISOControl(ch))
+        {
+            numbertf.setEditable(true);
+        }
+        else
+        {
+            numbertf.setEditable(false);
+        }
+        
     }//GEN-LAST:event_numbertfKeyPressed
 
    
