@@ -1,5 +1,6 @@
 package DSA_Project;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -32,6 +33,8 @@ public class TicketBooking extends javax.swing.JFrame {
     private void initComponents() {
 
         panel = new javax.swing.JPanel();
+        menuPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         menupanel = new javax.swing.JPanel();
         showlist = new javax.swing.JButton();
         delete = new javax.swing.JButton();
@@ -55,9 +58,37 @@ public class TicketBooking extends javax.swing.JFrame {
         panel.setBackground(new java.awt.Color(204, 204, 204));
         panel.setLayout(null);
 
+        menuPanel.setBackground(new java.awt.Color(102, 102, 102));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("MENU");
+
+        javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
+        menuPanel.setLayout(menuPanelLayout);
+        menuPanelLayout.setHorizontalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        menuPanelLayout.setVerticalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panel.add(menuPanel);
+        menuPanel.setBounds(0, 0, 180, 50);
+
         menupanel.setBackground(new java.awt.Color(153, 153, 153));
         menupanel.setLayout(null);
 
+        showlist.setBackground(new java.awt.Color(102, 102, 102));
         showlist.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         showlist.setText("Show List");
         showlist.addActionListener(new java.awt.event.ActionListener() {
@@ -66,18 +97,20 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         menupanel.add(showlist);
-        showlist.setBounds(30, 40, 120, 40);
+        showlist.setBounds(20, 40, 140, 40);
 
+        delete.setBackground(new java.awt.Color(102, 102, 102));
         delete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        delete.setText("Delete");
+        delete.setText("Cancel Booking");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
             }
         });
         menupanel.add(delete);
-        delete.setBounds(30, 110, 120, 40);
+        delete.setBounds(20, 110, 140, 40);
 
+        save.setBackground(new java.awt.Color(102, 102, 102));
         save.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         save.setText("Save Records");
         save.addActionListener(new java.awt.event.ActionListener() {
@@ -86,8 +119,9 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         menupanel.add(save);
-        save.setBounds(30, 180, 120, 40);
+        save.setBounds(20, 180, 140, 40);
 
+        search.setBackground(new java.awt.Color(102, 102, 102));
         search.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         search.setText("Search");
         search.addActionListener(new java.awt.event.ActionListener() {
@@ -96,50 +130,71 @@ public class TicketBooking extends javax.swing.JFrame {
             }
         });
         menupanel.add(search);
-        search.setBounds(30, 250, 120, 40);
+        search.setBounds(20, 250, 140, 40);
 
+        searchold.setBackground(new java.awt.Color(102, 102, 102));
         searchold.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        searchold.setText("Search Old");
+        searchold.setText("Search In File");
         searchold.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searcholdActionPerformed(evt);
             }
         });
         menupanel.add(searchold);
-        searchold.setBounds(30, 320, 120, 40);
+        searchold.setBounds(20, 320, 140, 40);
 
         panel.add(menupanel);
-        menupanel.setBounds(0, 0, 180, 600);
+        menupanel.setBounds(0, 50, 180, 550);
 
         name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         name.setText("Name:");
         panel.add(name);
         name.setBounds(260, 16, 50, 40);
 
+        nametf.setForeground(new java.awt.Color(153, 153, 153));
+        nametf.setText("Name");
+        nametf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nametfFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nametfFocusLost(evt);
+            }
+        });
         nametf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nametfKeyPressed(evt);
             }
         });
         panel.add(nametf);
-        nametf.setBounds(310, 20, 233, 33);
+        nametf.setBounds(310, 20, 233, 30);
 
         phoneno.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         phoneno.setText(" Phone No:");
         panel.add(phoneno);
         phoneno.setBounds(230, 70, 80, 30);
 
+        emailtf.setForeground(new java.awt.Color(153, 153, 153));
+        emailtf.setText("Email");
+        emailtf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailtfFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailtfFocusLost(evt);
+            }
+        });
         emailtf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 emailtfKeyPressed(evt);
             }
         });
         panel.add(emailtf);
-        emailtf.setBounds(310, 120, 233, 35);
+        emailtf.setBounds(310, 120, 233, 30);
 
-        enter.setBackground(new java.awt.Color(153, 153, 255));
+        enter.setBackground(new java.awt.Color(153, 153, 153));
         enter.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        enter.setText("Enter");
+        enter.setText("Book Ticket");
         enter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterActionPerformed(evt);
@@ -182,13 +237,23 @@ public class TicketBooking extends javax.swing.JFrame {
         panel.add(email);
         email.setBounds(260, 120, 50, 30);
 
+        numbertf.setForeground(new java.awt.Color(153, 153, 153));
+        numbertf.setText("Phone Number");
+        numbertf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                numbertfFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                numbertfFocusLost(evt);
+            }
+        });
         numbertf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 numbertfKeyPressed(evt);
             }
         });
         panel.add(numbertf);
-        numbertf.setBounds(310, 70, 233, 35);
+        numbertf.setBounds(310, 70, 233, 30);
 
         getContentPane().add(panel);
         panel.setBounds(0, 0, 630, 601);
@@ -201,12 +266,12 @@ public class TicketBooking extends javax.swing.JFrame {
        if(emailtf.getText().endsWith("@gmail.com") || emailtf.getText().endsWith("@email.com"))
        {
             ds.add(nametf.getText(), numbertf.getText(), emailtf.getText(), dateformat.format(date));
-            JOptionPane.showMessageDialog(null,"Data Saved");
+            JOptionPane.showMessageDialog(null,"Ticket Booked.");
        }
        
        else
        {
-           JOptionPane.showMessageDialog(null,"Something is wrong!");
+           JOptionPane.showMessageDialog(null,"Something is wrong while getting data!",null,JOptionPane.ERROR_MESSAGE);
        }
     }//GEN-LAST:event_enterActionPerformed
 
@@ -428,6 +493,66 @@ public class TicketBooking extends javax.swing.JFrame {
         
     }//GEN-LAST:event_numbertfKeyPressed
 
+    private void nametfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nametfFocusGained
+        
+        if(nametf.getText().equals("Name"))
+        {
+            nametf.setText("");
+            nametf.setForeground(new Color(0,0,0));
+        }
+        
+    }//GEN-LAST:event_nametfFocusGained
+
+    private void nametfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nametfFocusLost
+        
+        if(nametf.getText().equals(""))
+        {
+            nametf.setText("Name");
+            nametf.setForeground(new Color(153,153,153));
+        }
+        
+    }//GEN-LAST:event_nametfFocusLost
+
+    private void numbertfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numbertfFocusGained
+        
+        if(numbertf.getText().equals("Phone Number"))
+        {
+            numbertf.setText("");
+            numbertf.setForeground(new Color(0,0,0));
+        }
+        
+    }//GEN-LAST:event_numbertfFocusGained
+
+    private void numbertfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numbertfFocusLost
+        
+        if(numbertf.getText().equals(""))
+        {
+            numbertf.setText("Phone Number");
+            numbertf.setForeground(new Color(153,153,153));
+        }
+        
+    }//GEN-LAST:event_numbertfFocusLost
+
+    private void emailtfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailtfFocusGained
+        
+        if(emailtf.getText().equals("Email"))
+        {
+            emailtf.setText("");
+            emailtf.setForeground(new Color(0,0,0));
+        }
+        
+    }//GEN-LAST:event_emailtfFocusGained
+
+    private void emailtfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailtfFocusLost
+        
+        if(emailtf.getText().equals(""))
+        {
+            emailtf.setText("Email");
+            emailtf.setForeground(new Color(153,153,153));
+        }
+        
+    }//GEN-LAST:event_emailtfFocusLost
+
    
     public static void main(String args[]) {
         
@@ -463,6 +588,8 @@ public class TicketBooking extends javax.swing.JFrame {
     private javax.swing.JLabel email;
     private javax.swing.JTextField emailtf;
     private javax.swing.JButton enter;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel menuPanel;
     private javax.swing.JPanel menupanel;
     private javax.swing.JLabel name;
     private javax.swing.JTextField nametf;
